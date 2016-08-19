@@ -61,15 +61,47 @@ public class Habitacion extends javax.swing.JFrame {
         jPanel1.add(lblR, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 140, 30));
 
         cmdCalcular.setText("Calcular");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
 
         cmdRestaurar.setText("Restaurar");
+        cmdRestaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRestaurarActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdRestaurar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+
+        String r;
+        double nd, t;
+        
+        nd = Double.parseDouble(txtND.getText());
+        
+        t = 100000 + 200000 * (nd - 1);
+        
+        r = String.valueOf(t);
+        lblR.setText(r);
+        
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestaurarActionPerformed
+
+        txtND.setText("");
+        lblR.setText("");
+        txtND.requestFocusInWindow();
+        
+    }//GEN-LAST:event_cmdRestaurarActionPerformed
 
     /**
      * @param args the command line arguments
