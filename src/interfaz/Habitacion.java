@@ -5,6 +5,9 @@
  */
 package interfaz;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LUCYLEONOR
@@ -49,6 +52,15 @@ public class Habitacion extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Núm. Dias");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+
+        txtND.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNDKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNDKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtND, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 80, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -83,16 +95,24 @@ public class Habitacion extends javax.swing.JFrame {
 
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
 
-        String r;
-        double nd, t;
-        
-        nd = Double.parseDouble(txtND.getText());
-        
-        t = 100000 + 200000 * (nd - 1);
-        
-        r = String.valueOf(t);
-        lblR.setText(r);
-        
+        if (txtND.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ingresó El Numero De Días", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtND.requestFocusInWindow();
+        } else if (txtND.getText().equalsIgnoreCase("0")) {
+            JOptionPane.showMessageDialog(this, "El Numero De Días Debe Ser Superior A 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtND.requestFocusInWindow();
+            txtND.selectAll();
+        } else {
+            String r;
+            double nd, t;
+
+            nd = Double.parseDouble(txtND.getText());
+
+            t = 100000 + 200000 * (nd - 1);
+
+            r = String.valueOf(t);
+            lblR.setText("$ " + r);
+        }
     }//GEN-LAST:event_cmdCalcularActionPerformed
 
     private void cmdRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestaurarActionPerformed
@@ -100,8 +120,40 @@ public class Habitacion extends javax.swing.JFrame {
         txtND.setText("");
         lblR.setText("");
         txtND.requestFocusInWindow();
-        
+
     }//GEN-LAST:event_cmdRestaurarActionPerformed
+
+    private void txtNDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNDKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) ) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNDKeyTyped
+
+    private void txtNDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNDKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtND.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ingresó El Numero De Días", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtND.requestFocusInWindow();
+            } else if (txtND.getText().equalsIgnoreCase("0")) {
+                JOptionPane.showMessageDialog(this, "El Numero De Días Debe Ser Superior A 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtND.requestFocusInWindow();
+                txtND.selectAll();
+            } else {
+                String r;
+                double nd, t;
+
+                nd = Double.parseDouble(txtND.getText());
+
+                t = 100000 + 200000 * (nd - 1);
+
+                r = String.valueOf(t);
+                lblR.setText("$ " + r);
+            }
+        }
+    }//GEN-LAST:event_txtNDKeyPressed
 
     /**
      * @param args the command line arguments
